@@ -30,10 +30,27 @@ public class MainActivity extends AppCompatActivity {
       findViewById(R.id.start).setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              mediaJni.start(null);
+              mediaJni.start();
           }
       });
-
+        findViewById(R.id.resume).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaJni.resume();
+            }
+        });
+        findViewById(R.id.pause).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaJni.pasue();
+            }
+        });
+        findViewById(R.id.stop).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaJni.stop();
+            }
+        });
     }
 
     @Override

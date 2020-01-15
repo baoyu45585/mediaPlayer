@@ -21,21 +21,21 @@ typedef struct MUSIC_PLAY_INFO_T {
     float        value;
 } MUSIC_PLAY_INFO;
 
-Musicplayer::Musicplayer() {
-    m_javaVM = NULL;
-}
+typedef struct tagMiguEnv
+{
+    bool bAttatedT;
+    JNIEnv* env;
+}MiguEnv;
 
-Musicplayer::~Musicplayer() {
-    m_javaVM = NULL;
-}
+JavaVM* m_javaVM;
 
-int Musicplayer::music_player_set_javavm(JavaVM* JavaVM)
+int music_player_set_javavm(JavaVM* JavaVM)
 {
      m_javaVM   = JavaVM;
     return 0;
 }
 
-MiguEnv Musicplayer::music_player_getenv()
+MiguEnv music_player_getenv()
 {
     int status;
     MiguEnv ffenv;
@@ -57,7 +57,7 @@ MiguEnv Musicplayer::music_player_getenv()
 
     return ffenv;
 }
-bool Musicplayer::music_player_detachenv(MiguEnv ffenv)
+bool music_player_detachenv(MiguEnv ffenv)
 {
     if(ffenv.bAttatedT)
     {
@@ -68,7 +68,7 @@ bool Musicplayer::music_player_detachenv(MiguEnv ffenv)
     return false;
 }
 
-int Musicplayer::music_inface(char* path,int type, float wp, float lp) {
+int music_inface(char* path,int type, float wp, float lp) {
     MiguEnv local_env = music_player_getenv();
     JNIEnv * env = local_env.env;
 
@@ -95,7 +95,7 @@ int Musicplayer::music_inface(char* path,int type, float wp, float lp) {
     return 0;
 }
 
-int Musicplayer::music_player_play(char *path,bool loop)
+int music_player_play(char *path,bool loop)
 {
     int ret=0;
     float wp=1.0;
@@ -122,7 +122,7 @@ int Musicplayer::music_player_play(char *path,bool loop)
     return ret;
 }
 
-int Musicplayer::music_player_stop()
+int music_player_stop()
 {
     int ret=0;
 
@@ -131,7 +131,7 @@ int Musicplayer::music_player_stop()
 }
 
 
-int Musicplayer::music_player_pause()
+int music_player_pause()
 {
     int ret=0;
 
@@ -139,7 +139,7 @@ int Musicplayer::music_player_pause()
     return ret;
 }
 
-int Musicplayer::music_player_resume()
+int music_player_resume()
 {
     int ret=0;
 
@@ -147,7 +147,7 @@ int Musicplayer::music_player_resume()
     return ret;
 }
 
-int Musicplayer::music_player_set_value(float value)
+int music_player_set_value(float value)
 {
     int ret=0;
 

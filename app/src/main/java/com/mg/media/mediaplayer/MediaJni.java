@@ -10,5 +10,11 @@ public class MediaJni {
     }
 
 
-    public native void start(String path);
+    public native void start();
+
+    public native void pasue();
+
+    public native void stop();
+
+    public native void resume();
 }

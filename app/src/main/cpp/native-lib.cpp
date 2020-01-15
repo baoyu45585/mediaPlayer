@@ -2,15 +2,31 @@
 #include <string>
 #include "musicplayer.h"
 JavaVM *g_JavaVM;
-Musicplayer* musicplayer;
+
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_mg_media_mediaplayer_MediaJni_start(JNIEnv *env, jobject instance, jstring path_) {
-    musicplayer=new Musicplayer();
-    musicplayer->music_player_set_javavm(g_JavaVM);
+Java_com_mg_media_mediaplayer_MediaJni_start(JNIEnv *env, jobject instance) {
+
+   music_player_set_javavm(g_JavaVM);
     char* path="/storage/emulated/0/DCIM/cc.aac";
-    musicplayer->music_player_play(path,0);
+   music_player_play(path,1);
 }
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_mg_media_mediaplayer_MediaJni_pasue(JNIEnv *env, jobject instance) {
+    music_player_pause();
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_mg_media_mediaplayer_MediaJni_stop(JNIEnv *env, jobject instance) {
+
+    music_player_stop();
+
+}
+
+
 
 jint JNI_OnLoad(JavaVM* vm, void* reserved)
 {
@@ -21,5 +37,12 @@ jint JNI_OnLoad(JavaVM* vm, void* reserved)
         return -1;
     }
     return JNI_VERSION_1_4;
+
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_mg_media_mediaplayer_MediaJni_resume(JNIEnv *env, jobject instance) {
+    music_player_resume();
 
 }
